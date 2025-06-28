@@ -24,7 +24,9 @@ const ProductDetail = () => {
   const toast = useToast();
   const bg = useColorModeValue("white", "gray.800");
 
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://crudnodejs2.onrender.com/";
+  // ✅ Đảm bảo không có dấu "/" cuối URL
+  const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || "https://crudnodejs2.onrender.com";
+  const API_BASE = rawBaseUrl.replace(/\/$/, "");
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,7 +36,7 @@ const ProductDetail = () => {
         const data = await res.json();
         setProduct(data.data);
       } catch (err) {
-        console.error("Lỗi khi load chi tiết:", err);
+        console.error("Lỗi khi load chi tiết:", err.message);
         toast({
           title: "Lỗi",
           description: "Không thể tải sản phẩm. Vui lòng thử lại.",
@@ -76,7 +78,7 @@ const ProductDetail = () => {
   };
 
   if (loading) return <Spinner size="xl" mt={10} />;
-  if (!product) return <Text>Không tìm thấy sản phẩm.</Text>;
+  if (!product) return <Text textAlign="center" mt={10}>Không tìm thấy sản phẩm.</Text>;
 
   return (
     <Box p={6} maxW="1200px" mx="auto" bg={bg} rounded="lg" shadow="xl">
@@ -97,6 +99,7 @@ const ProductDetail = () => {
             />
           </Zoom>
 
+          {/* Hover text */}
           <Box
             position="absolute"
             bottom={3}
