@@ -24,7 +24,7 @@ const ProductDetail = () => {
   const toast = useToast();
   const bg = useColorModeValue("white", "gray.800");
 
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://crudnodejs2.onrender.com/";
 
   useEffect(() => {
     const fetchProduct = async () => {
