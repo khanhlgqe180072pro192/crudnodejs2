@@ -50,22 +50,29 @@ const Navbar = () => {
 
 				<HStack spacing={2} alignItems={"center"}>
 					{isLoggedIn && (
-						<Link to={"/create"}>
-							<Button>
-								<PlusSquareIcon fontSize={20} />
+						<>
+							<Link to={"/create"}>
+								<Button>
+									<PlusSquareIcon fontSize={20} />
+								</Button>
+							</Link>
+							<Link to={"/cart"}>
+								<Button colorScheme="blue" variant="outline">
+									🛒 Giỏ hàng
+								</Button>
+							</Link>
+							<Link to="/orders">
+								<Button variant="ghost" colorScheme="teal">
+									Đơn hàng đã đặt
+								</Button>
+							</Link>
+							<Button colorScheme="red" onClick={handleLogout}>
+								Đăng xuất
 							</Button>
-						</Link>
+						</>
 					)}
 
-					<Button onClick={toggleColorMode}>
-						{colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
-					</Button>
-
-					{isLoggedIn ? (
-						<Button colorScheme="red" onClick={handleLogout}>
-							Đăng xuất
-						</Button>
-					) : (
+					{!isLoggedIn && (
 						<>
 							<Button colorScheme="teal" onClick={() => navigate("/login")}>
 								Đăng nhập
@@ -75,6 +82,10 @@ const Navbar = () => {
 							</Button>
 						</>
 					)}
+
+					<Button onClick={toggleColorMode}>
+						{colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
+					</Button>
 				</HStack>
 			</Flex>
 		</Container>

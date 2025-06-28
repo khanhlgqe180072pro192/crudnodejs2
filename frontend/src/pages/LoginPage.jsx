@@ -32,7 +32,7 @@ export default function LoginPage() {
 				isClosable: true,
 			});
 			navigate("/");
-			window.location.reload(); // 👉 Tự động reload lại trang sau đăng nhập
+			window.location.reload(); 
 		} catch (err) {
 			toast({
 				title: "Đăng nhập thất bại",

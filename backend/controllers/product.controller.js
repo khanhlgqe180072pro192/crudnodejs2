@@ -12,7 +12,7 @@ export const getProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-	const product = req.body; // user will send this data
+	const product = req.body; 
 
 	if (!product.name || !product.price || !product.image) {
 		return res.status(400).json({ success: false, message: "Please provide all fields" });
@@ -59,5 +59,26 @@ export const deleteProduct = async (req, res) => {
 	} catch (error) {
 		console.log("error in deleting product:", error.message);
 		res.status(500).json({ success: false, message: "Server Error" });
+	}
+};
+
+export const getProductById = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return res.status(400).json({ success: false, message: "ID không hợp lệ" });
+		}
+
+		const product = await Product.findById(id);
+
+		if (!product) {
+			return res.status(404).json({ success: false, message: "Không tìm thấy sản phẩm" });
+		}
+
+		res.status(200).json({ success: true, data: product });
+	} catch (error) {
+		console.error("Lỗi khi lấy chi tiết sản phẩm:", error.message);
+		res.status(500).json({ success: false, message: "Lỗi server" });
 	}
 };
